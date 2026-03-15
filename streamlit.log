@@ -1,0 +1,40 @@
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://172.20.20.20:8501
+
+2026-03-15 05:39:31.395 Uncaught app execution
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/exec_code.py", line 129, in exec_func_with_error_handling
+    result = func()
+             ^^^^^^
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 689, in code_to_exec
+    exec(code, module.__dict__)  # noqa: S102
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/Desktop/AIfinal/Chatbot-AIEB-main/chat_with_local_ollama.py", line 38, in <module>
+    response = get_response_from_ollama(user_input)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/Desktop/AIfinal/Chatbot-AIEB-main/chat_with_local_ollama.py", line 10, in get_response_from_ollama
+    response = ollama.invoke(prompt)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 380, in invoke
+    self.generate_prompt(
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 791, in generate_prompt
+    return self.generate(prompt_strings, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 1013, in generate
+    return self._generate_helper(
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_core/language_models/llms.py", line 817, in _generate_helper
+    self._generate(
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_ollama/llms.py", line 456, in _generate
+    final_chunk = self._stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_ollama/llms.py", line 415, in _stream_with_aggregation
+    for stream_resp in self._create_generate_stream(prompt, stop, **kwargs):
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/langchain_ollama/llms.py", line 359, in _create_generate_stream
+    yield from self._client.generate(
+  File "/opt/miniconda3/envs/chatbot/lib/python3.11/site-packages/ollama/_client.py", line 179, in inner
+    raise ResponseError(e.response.text, e.response.status_code) from None
+ollama._types.ResponseError: model 'deepseek-r1:14b' not found (status code: 404)
