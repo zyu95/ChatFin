@@ -46,14 +46,8 @@ if user_input:
     
     # Display assistant response with simulated streaming
     with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        # Get the content from the AIMessage object and split it
-        assistant_response = response.content
-        for chunk in assistant_response.split():
-            full_response += chunk + " "
-            message_placeholder.markdown(full_response)
-            time.sleep(0.01)  # Small delay to simulate streaming
+        with st.chat_message("assistant"):
+            assistant_response = st.write_stream(response.content if hasattr(response, 'content') else response)
     
     # Store assistant response in session state
     st.session_state.messages.append({"role": "assistant", "content": assistant_response})

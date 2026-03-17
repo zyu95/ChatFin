@@ -12,3 +12,4 @@ env/
 
 # Local IDE settings (VS Code)
 .vscode/
+.streamlit/

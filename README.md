@@ -43,7 +43,6 @@ conda create -n chatbot python=3.11
 conda activate chatbot
 
 # Install packages available in conda-forge
-conda install -c conda-forge streamlit faiss-cpu pdf2image pytesseract pillow
 
 # Install the remaining packages using pip
 pip install "langchain>=0.1.0"  # Core LangChain framework for building LLM applications

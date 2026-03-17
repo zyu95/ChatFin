@@ -31,6 +31,12 @@ CORE RULES:
 3. **No Symbol Scattering**: Asterisks (*) are ONLY for the start of a list. Do NOT use them in the middle of a sentence.
 4. **Scannable Layout**: Use bolding for key financial metrics and company names.
 
+Rules:
+- Always include the headings
+- Always include bullet points
+- Never return a single paragraph
+- If information is missing, say "I don't know"
+
 ### 📝 EXPECTED OUTPUT TEMPLATE:
 
 [Brief opening summary about data availability]
@@ -63,18 +69,29 @@ Question: {user_input}
 
 # Set Google API key (replace with your key or use an env variable)
 import os
-from config import GOOGLE_API_KEY
 
-# "YOUR_GOOGLE_API_KEY"  # Replace with your actual Gemini API key
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+import os
+from dotenv import load_dotenv
+
+# 自动寻找并读取当前文件夹下的 .env 文件
+load_dotenv()
+
+# 从环境变量中获取 Key
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+# 确保 Key 存在
+if GOOGLE_API_KEY:
+    os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+else:
+    st.error("Error: GOOGLE_API_KEY not found in .env file!")
 
 embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-2-preview")
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.5)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.3)
 
 
-st.set_page_config(page_title="Chat with Your PDFs (Gemini)")
+st.set_page_config(page_title="ChatFin with Your PDFs (Gemini)")
 
-st.title("📄💬 Chat with Your PDFs (Gemini)")
+st.title("📄💬 ChatFin with Your PDFs (Gemini)")
 
 # File uploader
 uploaded_files = st.file_uploader("Upload PDFs", accept_multiple_files=True, type=["pdf"])
@@ -98,7 +115,7 @@ if uploaded_files:
                     documents.extend(loader.load())
 
                 # Split documents into chunks
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
                 docs = text_splitter.split_documents(documents)
 
                 # Generate embeddings and store in FAISS
